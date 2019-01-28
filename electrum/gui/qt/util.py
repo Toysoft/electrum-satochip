@@ -19,7 +19,7 @@ from electrum import ecc
 from electrum import constants
 from electrum.i18n import _, languages
 from electrum.util import FileImportFailed, FileExportFailed, make_aiohttp_session, PrintError
-from electrum.paymentrequest import PR_UNPAID, PR_PAID, PR_EXPIRED
+from electrum.util import PR_UNPAID, PR_PAID, PR_EXPIRED, PR_INFLIGHT
 
 if TYPE_CHECKING:
     from .main_window import ElectrumWindow
@@ -38,13 +38,15 @@ dialogs = []
 pr_icons = {
     PR_UNPAID:":icons/unpaid.png",
     PR_PAID:":icons/confirmed.png",
-    PR_EXPIRED:":icons/expired.png"
+    PR_EXPIRED:":icons/expired.png",
+    PR_INFLIGHT:":icons/lightning.png"
 }
 
 pr_tooltips = {
     PR_UNPAID:_('Pending'),
     PR_PAID:_('Paid'),
-    PR_EXPIRED:_('Expired')
+    PR_EXPIRED:_('Expired'),
+    PR_INFLIGHT:_('Inflight')
 }
 
 expiration_values = [
