@@ -19,7 +19,7 @@ from electrum import ecc
 from electrum import constants
 from electrum.i18n import _, languages
 from electrum.util import FileImportFailed, FileExportFailed, make_aiohttp_session, PrintError
-from electrum.util import PR_UNPAID, PR_PAID, PR_EXPIRED, PR_INFLIGHT
+from electrum.util import PR_UNPAID, PR_PAID, PR_EXPIRED, PR_INFLIGHT, PR_UNKNOWN
 
 if TYPE_CHECKING:
     from .main_window import ElectrumWindow
@@ -36,6 +36,7 @@ else:
 dialogs = []
 
 pr_icons = {
+    PR_UNKNOWN:":icons/unpaid.png",
     PR_UNPAID:":icons/unpaid.png",
     PR_PAID:":icons/confirmed.png",
     PR_EXPIRED:":icons/expired.png",

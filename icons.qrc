@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/" >
+    <file>icons/bitcoin.png</file>
     <file>icons/electrum.png</file>
     <file>icons/clock1.png</file>
     <file>icons/clock2.png</file>
