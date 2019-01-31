@@ -1009,17 +1009,7 @@ class Abstract_Wallet(AddressSynchronizer):
                         self.print_stderr('Invalid config setting for "url_rewrite". err:', e)
                 out['request_url'] = os.path.join(baseurl, 'req', key[0], key[1], key, key)
                 out['URI'] += '&r=' + out['request_url']
-                out['index_url'] = os.path.join(baseurl, 'index.html') + '?id=' + key
-                websocket_server_announce = config.get('websocket_server_announce')
-                if websocket_server_announce:
-                    out['websocket_server'] = websocket_server_announce
-                else:
-                    out['websocket_server'] = config.get('websocket_server', 'localhost')
-                websocket_port_announce = config.get('websocket_port_announce')
-                if websocket_port_announce:
-                    out['websocket_port'] = websocket_port_announce
-                else:
-                    out['websocket_port'] = config.get('websocket_port', 9999)
+                out['index_url'] = os.path.join(baseurl, 'static/index.html') + '?id=' + key
         return out
 
     def get_request_status(self, key):

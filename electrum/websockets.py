@@ -31,11 +31,6 @@ from typing import Dict, List, Tuple, TYPE_CHECKING
 import traceback
 import sys
 
-try:
-    from SimpleWebSocketServer import WebSocket, SimpleSSLWebSocketServer
-except ImportError:
-    sys.exit("install SimpleWebSocketServer")
-
 from .util import PrintError
 from . import bitcoin
 from .synchronizer import SynchronizerBase
@@ -47,25 +42,10 @@ if TYPE_CHECKING:
 
 request_queue = asyncio.Queue()
 
-
-class ElectrumWebSocket(WebSocket, PrintError):
-
-    def handleMessage(self):
-        assert self.data[0:3] == 'id:'
-        self.print_error("message received", self.data)
-        request_id = self.data[3:]
-        asyncio.run_coroutine_threadsafe(
-            request_queue.put((self, request_id)), asyncio.get_event_loop())
-
-    def handleConnected(self):
-        self.print_error("connected", self.address)
-
-    def handleClose(self):
-        self.print_error("closed", self.address)
-
-
 class BalanceMonitor(SynchronizerBase):
-
+    """
+    Used in electrum-merchant
+    """
     def __init__(self, config: 'SimpleConfig', network: 'Network'):
         SynchronizerBase.__init__(self, network)
         self.config = config
@@ -104,25 +84,5 @@ class BalanceMonitor(SynchronizerBase):
         for ws, amount in self.expected_payments[addr]:
             if not ws.closed:
                 if sum(balance.values()) >= amount:
-                    ws.sendMessage('paid')
-
-
-class WebSocketServer(threading.Thread):
-
-    def __init__(self, config: 'SimpleConfig', network: 'Network'):
-        threading.Thread.__init__(self)
-        self.config = config
-        self.network = network
-        asyncio.set_event_loop(network.asyncio_loop)
-        self.daemon = True
-        self.balance_monitor = BalanceMonitor(self.config, self.network)
-        self.start()
-
-    def run(self):
-        asyncio.set_event_loop(self.network.asyncio_loop)
-        host = self.config.get('websocket_server')
-        port = self.config.get('websocket_port', 9999)
-        certfile = self.config.get('ssl_chain')
-        keyfile = self.config.get('ssl_privkey')
-        self.server = SimpleSSLWebSocketServer(host, port, ElectrumWebSocket, certfile, keyfile)
-        self.server.serveforever()
+                    await ws.send_str('paid')
+                    await ws.close()
