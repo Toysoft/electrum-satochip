@@ -48,9 +48,6 @@ from electrum.util import (UserCancelled, PrintError, profiler,
                            WalletFileException, BitcoinException, get_new_wallet_name)
 
 from .installwizard import InstallWizard
-
-from electrum.lightning import LightningUI
-
 from .util import get_default_language, read_QIcon, ColorScheme
 from .main_window import ElectrumWindow
 from .network_dialog import NetworkDialog
