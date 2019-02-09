@@ -50,7 +50,7 @@ from .wallet import Wallet, Imported_Wallet, Abstract_Wallet
 from .address_synchronizer import TX_HEIGHT_LOCAL
 from .mnemonic import Mnemonic
 from .lnutil import SENT, RECEIVED
-from .lnbase import channel_id_from_funding_tx
+from .lnpeer import channel_id_from_funding_tx
 
 if TYPE_CHECKING:
     from .network import Network
