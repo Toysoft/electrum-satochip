@@ -58,9 +58,6 @@ from .version import PROTOCOL_VERSION
 from .simple_config import SimpleConfig
 from .i18n import _
 
-# lightning network
-from . import lnwatcher
-from . import lnrouter
 
 NODES_RETRY_INTERVAL = 60
 SERVER_RETRY_INTERVAL = 10
@@ -287,6 +284,8 @@ class Network(PrintError):
         self._set_status('disconnected')
 
         # lightning network
+        from . import lnwatcher
+        from . import lnrouter
         self.channel_db = lnrouter.ChannelDB(self)
         self.path_finder = lnrouter.LNPathFinder(self.channel_db)
         self.lnwatcher = lnwatcher.LNWatcher(self)
