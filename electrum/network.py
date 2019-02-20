@@ -1178,8 +1178,6 @@ class Network(PrintError):
         coro = asyncio.run_coroutine_threadsafe(network._send_http_on_proxy(method, url, **kwargs), network.asyncio_loop)
         return coro.result(5)
 
-
-
     # methods used in scripts
     async def get_peers(self):
         while not self.is_connected():
