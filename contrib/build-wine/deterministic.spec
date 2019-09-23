@@ -135,7 +135,7 @@ exe_standalone = EXE(
     strip=None,
     upx=False,
     icon=home+'icons/electron.ico',
-    console=True) #Satochip True
+    console=False)
 
 
 exe_portable = EXE(
@@ -148,7 +148,7 @@ exe_portable = EXE(
     strip=None,
     upx=False,
     icon=home+'icons/electron.ico',
-    console=True) #Satochip True
+    console=False)
 
 #####
 # exe and separate files that NSIS uses to build installer "setup" exe
