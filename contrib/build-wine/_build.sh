@@ -156,7 +156,7 @@ prepare_wine() {
 
         # Satochip pyscard
         PYSCARD_FILENAME=pyscard-1.9.8-cp36-cp36m-win32.whl  # python 3.6, 32-bit
-        PYSCARD_URL=https://ci.appveyor.com/api/buildjobs/j60tkykj6vh0ppiy/artifacts/dist%2Fpyscard-1.9.8-cp36-cp36m-win32.whl
+        PYSCARD_URL=https://github.com/cculianu/Electron-Cash-Build-Tools/releases/download/v1.0/pyscard-1.9.8-cp36-cp36m-win32.whl
         PYSCARD_SHA256=4641b5db53fb3562671b7b7c685ddf8f715180e2809106fb2a9361dfad553b4b
 
         ## These settings probably don't need change
