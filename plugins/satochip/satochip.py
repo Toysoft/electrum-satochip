@@ -683,10 +683,10 @@ class SatochipPlugin(HW_PluginBase):
         wizard.seed_type = 'bip39' if is_bip39 else bitcoin.seed_type(seed)
         if wizard.seed_type == 'bip39':
             f = lambda passphrase: self.derive_bip39_seed(seed, passphrase)
-            wizard.passphrase_dialog(run_next=f, is_restoring=True) if is_ext else f('')
+            wizard.passphrase_dialog(run_next=f) if is_ext else f('')
         elif wizard.seed_type in ['standard', 'segwit']:
             f = lambda passphrase: self.derive_bip32_seed(seed, passphrase)
-            wizard.passphrase_dialog(run_next=f, is_restoring=True) if is_ext else f('')
+            wizard.passphrase_dialog(run_next=f) if is_ext else f('')
         elif wizard.seed_type == 'old':
             raise Exception('Unsupported seed type', wizard.seed_type)
         elif bitcoin.is_any_2fa_seed_type(wizard.seed_type):
